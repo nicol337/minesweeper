@@ -2,11 +2,19 @@ from minesweeper import Minesweeper
 import time
 import os
 
+def getLevel():
+	levels = ['easy', 'medium', 'hard']
+	level = input("Please type "+ ', '.join(levels) + " for level").lower().strip()
+	while level not in levels:
+		level =  input("Please type "+ ', '.join(levels) + " for level").lower().strip()
+	return levels.index(level) * 5 + 5
 
 def main():
+	print("Welcome to Minesweeper")
 	width = 10
 	height = 10
-	newGame = Minesweeper(width,height,10)
+	mine_count = getLevel()
+	newGame = Minesweeper(width,height,mine_count)
 
 	gameOver = False
 	while not gameOver:
