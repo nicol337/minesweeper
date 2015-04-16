@@ -2,11 +2,11 @@ from tile import Tile
 import random
 
 class Minesweeper:
-	def __init__(self, width, height, mineCount):
+	def __init__(self, width, height, mine_count):
 		self.board = []
 		self.width = width
 		self.height = height
-		self.mineCount = mineCount
+		self.mine_count = mine_count
 
 		for i in range(width):
 			for j in range(height):
@@ -16,9 +16,14 @@ class Minesweeper:
 		self.__setNumbers()
 
 	def __setMines(self):
-		random.shuffle(self.board)
-		for i in range(self.mineCount):
-			self.board[i].setMine()
+		mines_placed = 0
+		while mines_placed != self.mine_count:
+			row = random.randint(0,self.width-1)
+			col = random.randint(0,self.height-1)
+			tile = self.getTile(row,col)
+			if not tile.isMine():
+				tile.setMine()
+				mines_placed += 1
 
 	def __setNumbers(self):
 		neighbors_index = (-1,0,1)
@@ -78,9 +83,8 @@ class Minesweeper:
 		return True
 
 	def getTile(self, x, y):
-		for tile in self.board:
-			if tile.x == x and tile.y == y:
-				return tile
+		tile_index = x*self.width + y
+		return self.board[tile_index]
 
 	def __str__(self):
 		board_str = '   '+' '.join([str(x)+' ' for x in range(self.width)])+'\n'

@@ -12,7 +12,7 @@ def main():
 	while not gameOver:
 
 		os.system('clear')
-		print("Bombs:",newGame.mineCount,"\t Flags:",newGame.getFlagCount())
+		print("Bombs:",newGame.mine_count,"\t Flags:",newGame.getFlagCount())
 		print(newGame)
 		row = input("Please enter the row (0 to {0})".format(width))
 		while not row.isdigit() or int(row) not in range(width):
